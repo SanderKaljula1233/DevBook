@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Aux from '../Aux/Aux';
-import Navbar from '../../containers/Navbar/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 
 class Layout extends Component {
     render () {

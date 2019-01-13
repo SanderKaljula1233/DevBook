@@ -68,25 +68,17 @@ router.post(
 // @access  Private
 router.delete(
   '/:id',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('jwt', {session: false}),
   (req, res) => {
-    Profile.findOne({ user: req.user.id }).then(profile => {
-      Post.findById(req.params.id)
-        .then(post => {
-          // Check for post owner
-          if (post.user.toString() !== req.user.id) {
-            return res
-              .status(401)
-              .json({ notauthorized: 'User not authorized' });
-          }
-
-          // Delete
-          post.remove().then(() => res.json({ success: true }));
-        })
-        .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-    });
-  }
-);
+  // Check Id of owner post
+  Post.findOneAndRemove({ _id: req.params.id, user: req.user.id })
+    .then(post => {
+      return !post
+        ? res.status(401).json({ post: 'post not found' })
+        : res.status(200).json({ post: 'post deleted' })
+    })
+    .catch(err => res.status(404).json({ post: 'It had a problem deleting the post' }))
+})
 
 // @route   POST api/posts/like/:id
 // @desc    Like post
@@ -95,8 +87,7 @@ router.post(
   '/like/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Profile.findOne({ user: req.user.id }).then(profile => {
-      Post.findById(req.params.id)
+      Post.findById({_id: req.params.id, user: req.user.id})
         .then(post => {
           if (
             post.likes.filter(like => like.user.toString() === req.user.id)
@@ -113,7 +104,6 @@ router.post(
           post.save().then(post => res.json(post));
         })
         .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-    });
   }
 );
 
@@ -124,8 +114,7 @@ router.post(
   '/unlike/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Profile.findOne({ user: req.user.id }).then(profile => {
-      Post.findById(req.params.id)
+      Post.findById({_id: req.params.id, user: req.user.id})
         .then(post => {
           if (
             post.likes.filter(like => like.user.toString() === req.user.id)
@@ -148,7 +137,6 @@ router.post(
           post.save().then(post => res.json(post));
         })
         .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-    });
   }
 );
 

@@ -4,18 +4,19 @@ import PrivateRoute from './hoc/PrivateRoute/PrivateRoute';
 import './App.css';
 
 import Layout from './hoc/Layout/Layout';
-import Landing from './containers/Landing/Landing';
-import Login from './containers/Auth/Login/Login';
-import Register from './containers/Auth/Register/Register';
-import Dashboard from './containers/UI/Dashboard/Dashboard';
-import CreateProfile from './containers/CreateProfile/CreateProfile';
-import EditProfile from './containers/EditProfile/EditProfile';
-import AddExperience from './containers/EditProfile/AddExperience/AddExperience';
-import AddEducation from './containers/EditProfile/AddEducation/AddEducation';
-import Profiles from './containers/Profiles/Profiles';
-import Profile from './containers/Profile/Profile';
-import NotFound from './containers/NotFound/NotFound';
-import Posts from './containers/Posts/Posts';
+import Landing from './components/Landing/Landing';
+import Login from './components/Auth/Login/Login';
+import Register from './components/Auth/Register/Register';
+import Dashboard from './components/UI/Dashboard/Dashboard';
+import CreateProfile from './components/CreateProfile/CreateProfile';
+import EditProfile from './components/EditProfile/EditProfile';
+import AddExperience from './components/EditProfile/AddExperience/AddExperience';
+import AddEducation from './components/EditProfile/AddEducation/AddEducation';
+import Profiles from './components/Profiles/Profiles';
+import Profile from './components/Profile/Profile';
+import NotFound from './components/NotFound/NotFound';
+import Posts from './components/Posts/Posts';
+import Post from './components/Post/Post';
 
 class App extends Component {
   render() {
@@ -77,6 +78,12 @@ class App extends Component {
               exact 
               path="/feed" 
               component={Posts} />
+          </Switch>
+          <Switch>
+            <PrivateRoute 
+              exact 
+              path="/post/:id" 
+              component={Post} />
           </Switch>
 
           <Route 

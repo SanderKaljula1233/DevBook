@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import TextAreaGroup from '../UI/TextFieldGroup/TextAreaGroup';
-import { addPost } from '../../actions/postActions';
+import TextAreaGroup from '../../UI/TextFieldGroup/TextAreaGroup';
+import { addPost } from '../../../actions/postActions';
 
 class PostForm extends Component {
     state = {
