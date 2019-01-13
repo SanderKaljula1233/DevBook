@@ -15,6 +15,7 @@ import AddEducation from './containers/EditProfile/AddEducation/AddEducation';
 import Profiles from './containers/Profiles/Profiles';
 import Profile from './containers/Profile/Profile';
 import NotFound from './containers/NotFound/NotFound';
+import Posts from './containers/Posts/Posts';
 
 class App extends Component {
   render() {
@@ -71,6 +72,13 @@ class App extends Component {
               path="/add-education" 
               component={AddEducation} />
           </Switch>
+          <Switch>
+            <PrivateRoute 
+              exact 
+              path="/feed" 
+              component={Posts} />
+          </Switch>
+
           <Route 
             exact 
             path="/not-found" 
